@@ -1,4 +1,4 @@
-package clockface;
+package clockview;
 
 import java.awt.Color;
 import java.awt.Font;

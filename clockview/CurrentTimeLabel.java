@@ -1,4 +1,4 @@
-package clock;
+package clockview;
 
 import javax.swing.JLabel;
 
