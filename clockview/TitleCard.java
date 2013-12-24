@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 
+//contains code detailing the look of the JLabel holding the title
 public class TitleCard extends JLabel {
 	
 	public TitleCard() {
