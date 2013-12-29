@@ -97,14 +97,10 @@ public class MainClockDisplay extends JFrame {
 		alpher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		alpher.setSize(650, 500);
 		
-//		ClockAlarm beta = new ClockAlarm(13, 32, 30);
-		
-		alarmText = alarmText + cFaceDispl(ClockAlarm.getSetoffHour()) + ":" + cFaceDispl(ClockAlarm.getSetoffMin()) + ":" + cFaceDispl(ClockAlarm.getSetoffSec());
-		
-		System.out.println(AlarmInputButton.getAlmInHour());
-		System.out.println(AlarmInputButton.getAlmInMin());
-		System.out.println(AlarmInputButton.getAlmInSec());
-		
+		//the display to show the alarm time is still bugged (probably just throw in another listener)
+		//otherwise, it works now. add wav play functionality
+		alarmText = alarmText + cFaceDispl(AlarmInputButton.getAlmInHour()) + ":" + cFaceDispl(AlarmInputButton.getAlmInMin()) + ":" + cFaceDispl(AlarmInputButton.getAlmInSec());
+
 	}
 	
 }

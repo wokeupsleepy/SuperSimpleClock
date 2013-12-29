@@ -12,9 +12,9 @@ public class ClockAlarm {
 	private int currMin;
 	private int currSec;
 	
-	private static int setoffHour; //using static setoff time values may prevent the use of multiple alarms at a time, investigate later
-	private static int setoffMin;
-	private static int setoffSec;
+	private int setoffHour;
+	private int setoffMin;
+	private int setoffSec;
 	
 	private Timer alarmCheck;
 	private Ticker alarmSetup;
@@ -58,15 +58,15 @@ public class ClockAlarm {
 		
 	}	
 	
-	public static int getSetoffHour() {
+	public int getSetoffHour() {
 		return setoffHour;
 	}
 
-	public static int getSetoffMin() {
+	public int getSetoffMin() {
 		return setoffMin;
 	}
 
-	public static int getSetoffSec() {
+	public int getSetoffSec() {
 		return setoffSec;
 	}
 	

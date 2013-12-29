@@ -26,6 +26,11 @@ public class AlarmInputButton extends JButton {
 		addActionListener(btnListener);
 	}
 	
+	public static ClockAlarm setAlarm() {
+		ClockAlarm klaxon = new ClockAlarm(almInHour, almInMin, almInSec);
+		return klaxon;
+	}
+	
 	public class AlmBtnListener implements ActionListener {
 		
 		public void actionPerformed(ActionEvent eventInput) {
@@ -34,13 +39,20 @@ public class AlarmInputButton extends JButton {
 			almInMin = Integer.parseInt(alarmData.substring(3, 5));
 			almInSec = Integer.parseInt(alarmData.substring(6, 8));
 			
+			setAlarm();
+			
 //			System.out.println(AlarmInputButton.getAlmInHour()); //check the same methods at the bottom of the main method in MainClockDisplay
 //			System.out.println(AlarmInputButton.getAlmInMin()); //those methods output 0s across the board
-//			System.out.println(AlarmInputButton.getAlmInSec());
-			//the reason is because the initialization statements are in this loop
+//			System.out.println(AlarmInputButton.getAlmInSec()); //the reason is because the initialization statements are in this loop
 		}
 	}
 	
+	public String getAlarmTime() {
+		String output = Integer.toString(almInHour) + Integer.toString(almInMin) + Integer.toString(almInSec);
+		
+		return output;
+	}
+
 	public static int getAlmInHour() {
 		return almInHour;
 	}
@@ -52,5 +64,7 @@ public class AlarmInputButton extends JButton {
 	public static int getAlmInSec() {
 		return almInSec;
 	}
+	
+	
 
 }
