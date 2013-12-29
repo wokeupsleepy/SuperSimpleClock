@@ -35,13 +35,14 @@ public class MainClockDisplay extends JFrame {
 	
 	private ClockUpdater updatePrime;
 	private Timer updater;
+	
+	private String alarmInfo = new String("nothing here for now, fix later");
 
 	private int currHour;
 	private int currMin;
 	private int currSec;
 	private String civvieTime;
 	private boolean isMilitaryTime = true;
-	private static String alarmText = new String("Alarm set to ");
 
 	public MainClockDisplay() {
 		super("Sleepy Time Alarm Clock by Tom");
@@ -80,12 +81,15 @@ public class MainClockDisplay extends JFrame {
 		public void actionPerformed(ActionEvent eventInput) {			
 			if(eventInput.getSource() == updater) { //basically, if updater adds a ClockUpdater, this starts up and keeps looping over
 				PrimeClock whereTimeIs = new PrimeClock();
-				alarmLabel.setText(alarmText);
 				currHour = whereTimeIs.getCurrHour();
 				currMin = whereTimeIs.getCurrMin();
 				currSec = whereTimeIs.getCurrSec();
 				
-				mainClockLabel.setText(cFaceDispl(whereTimeIs.getCurrHour()) + ":" + cFaceDispl(whereTimeIs.getCurrMin()) + ":" + cFaceDispl(whereTimeIs.getCurrSec()));
+				mainClockLabel.setText(cFaceDispl(whereTimeIs.getCurrHour()) + ":" 
+				+ cFaceDispl(whereTimeIs.getCurrMin()) + ":" + cFaceDispl(whereTimeIs.getCurrSec()));
+				
+				alarmLabel.setText("The alarm is set to " + AlarmInputButton.getAlarmData());
+				
 			}
 		}
 		
@@ -97,10 +101,7 @@ public class MainClockDisplay extends JFrame {
 		alpher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		alpher.setSize(650, 500);
 		
-		//the display to show the alarm time is still bugged (probably just throw in another listener)
-		//otherwise, it works now. add wav play functionality
-		alarmText = alarmText + cFaceDispl(AlarmInputButton.getAlmInHour()) + ":" + cFaceDispl(AlarmInputButton.getAlmInMin()) + ":" + cFaceDispl(AlarmInputButton.getAlmInSec());
-
+		//it works now. add wav play functionality
 	}
 	
 }

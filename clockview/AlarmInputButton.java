@@ -14,9 +14,10 @@ public class AlarmInputButton extends JButton {
 	
 	private AlmBtnListener btnListener = new AlmBtnListener();
 
-	private static int almInHour;
-	private static int almInMin;
-	private static int almInSec;
+	private int almInHour;
+	private int almInMin;
+	private int almInSec;
+	private static String alarmData;
 	
 	public AlarmInputButton() {
 		setBackground(Color.BLACK);
@@ -26,7 +27,7 @@ public class AlarmInputButton extends JButton {
 		addActionListener(btnListener);
 	}
 	
-	public static ClockAlarm setAlarm() {
+	public ClockAlarm setAlarm() { //creates a new alarm! hurray!
 		ClockAlarm klaxon = new ClockAlarm(almInHour, almInMin, almInSec);
 		return klaxon;
 	}
@@ -34,7 +35,7 @@ public class AlarmInputButton extends JButton {
 	public class AlmBtnListener implements ActionListener {
 		
 		public void actionPerformed(ActionEvent eventInput) {
-			String alarmData = JOptionPane.showInputDialog(null, "Enter alarm in the format(HH:MM:SS): ");
+			alarmData = JOptionPane.showInputDialog(null, "Enter alarm in the format(HH:MM:SS): ");
 			almInHour = Integer.parseInt(alarmData.substring(0, 2));
 			almInMin = Integer.parseInt(alarmData.substring(3, 5));
 			almInSec = Integer.parseInt(alarmData.substring(6, 8));
@@ -47,21 +48,20 @@ public class AlarmInputButton extends JButton {
 		}
 	}
 	
-	public String getAlarmTime() {
-		String output = Integer.toString(almInHour) + Integer.toString(almInMin) + Integer.toString(almInSec);
-		
-		return output;
+	public static String getAlarmData() {
+		return alarmData;
 	}
+	
 
-	public static int getAlmInHour() {
+	public int getAlmInHour() {
 		return almInHour;
 	}
 
-	public static int getAlmInMin() {
+	public int getAlmInMin() {
 		return almInMin;
 	}
 
-	public static int getAlmInSec() {
+	public int getAlmInSec() {
 		return almInSec;
 	}
 	
