@@ -8,39 +8,37 @@ import javax.swing.Timer;
 
 public class ClockAlarm {
 	
-	int alarmHour;
-	int alarmMin;
-	int alarmSec;
-	Timer alarmCheck;
-	Ticker alarmSetup;
-	Timer freshAlarm;
-
+	private int currHour;
+	private int currMin;
+	private int currSec;
+	
+	private static int setoffHour; //using static setoff time values may prevent the use of multiple alarms at a time, investigate later
+	private static int setoffMin;
+	private static int setoffSec;
+	
+	private Timer alarmCheck;
+	private Ticker alarmSetup;
+	private Timer freshAlarm;
+	
 	//the constructor's really the only important bit here, everything else supports it
 	public ClockAlarm(int hourInput, int minInput, int secInput) {
+		setoffHour = hourInput;
+		setoffMin = minInput;
+		setoffSec = secInput;
 		alarmSetup = new Ticker();
 		alarmCheck = new Timer(500, alarmSetup);
 		alarmCheck.start();
 		
-		AlarmAction alarmer = new AlarmAction(hourInput, minInput, secInput);
+		AlarmAction alarmer = new AlarmAction();
 		freshAlarm = new Timer(500, alarmer);
 		freshAlarm.start();
 	}
 	
-	private class AlarmAction implements ActionListener {
-		
-		int setoffHour;
-		int setoffMin;
-		int setoffSec;
-		
-		public AlarmAction(int hourInput, int minInput, int secInput) {
-			setoffHour = hourInput;
-			setoffMin = minInput;
-			setoffSec = secInput;
-		}
+	public class AlarmAction implements ActionListener {
 		
 		public void actionPerformed(ActionEvent eventInput) {
 			if(eventInput.getSource() == freshAlarm) {
-				if(alarmHour == setoffHour && alarmMin == setoffMin && alarmSec == setoffSec) {
+				if(currHour == setoffHour && currMin == setoffMin && currSec == setoffSec) {
 					JOptionPane.showMessageDialog(null, "The alarm has been released!"); //this is the alarm action, change how you please
 				}
 			}
@@ -52,12 +50,25 @@ public class ClockAlarm {
 		public void actionPerformed(ActionEvent eventInput) {			
 			if(eventInput.getSource() == alarmCheck) { //basically, if alarmCheck adds a Ticker, this starts up and keeps looping over
 				PrimeClock timeSource = new PrimeClock();
-				alarmHour = timeSource.getCurrHour();
-				alarmMin = timeSource.getCurrMin();
-				alarmSec = timeSource.getCurrSec();				
+				currHour = timeSource.getCurrHour();
+				currMin = timeSource.getCurrMin();
+				currSec = timeSource.getCurrSec();
 			}
 		}
 		
+	}	
+	
+	public static int getSetoffHour() {
+		return setoffHour;
 	}
 
+	public static int getSetoffMin() {
+		return setoffMin;
+	}
+
+	public static int getSetoffSec() {
+		return setoffSec;
+	}
+	
 }
+
