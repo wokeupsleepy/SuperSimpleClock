@@ -10,6 +10,10 @@ import javax.swing.JOptionPane;
 
 import clocklogic.ClockAlarm;
 
+//this handles the appearance of the button to input an alarm time along with an input window to put in a time
+//future improvements: impose limits on inputs (use if loops), add a secondary button to set a remembered time
+//explanation for the use of input string: It's simply faster than using drop-down menus (a wheel would be cool)
+
 public class AlarmInputButton extends JButton {
 	
 	private AlmBtnListener btnListener = new AlmBtnListener();
