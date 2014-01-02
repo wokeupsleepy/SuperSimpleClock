@@ -34,6 +34,7 @@ public class ClockAlarm {
 		freshAlarm.start();
 	}
 	
+	//AlarmAction handles the action that occurs when alarm time goes off
 	public class AlarmAction implements ActionListener {
 		
 		public void actionPerformed(ActionEvent eventInput) {
