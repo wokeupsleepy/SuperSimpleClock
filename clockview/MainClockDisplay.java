@@ -1,13 +1,10 @@
 package clockview;
 
-import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.JFrame;
 
@@ -17,14 +14,13 @@ import clocklogic.*;
 //also contains main method
 
 //ideas for future improvements:
-//implement an alarm that plays a wav file
 //darken the text after a set period of time
 //include some code where you can't close the window until you input a keyboard command/password
-//have the keyboard command be a randomly generated string of words, this prevents
+//have the keyboard command be a randomly generated string of words
 //include code to allow the user to change certain settings (play custom .wav file for alarm)
 //make this with JavaFX
 //finish doing this for now to get used to using ActionListeners and whatnot, work on music player later
-//experiment with images, this will be useful for graphic simulations
+//experiment with images, this could be useful for graphic work later
 
 public class MainClockDisplay extends JFrame {
 	
@@ -33,16 +29,14 @@ public class MainClockDisplay extends JFrame {
 	private ClockLabel alarmLabel = new ClockLabel();
 	private AlarmInputButton alarmInput = new AlarmInputButton();
 	
+	public static Font clockFont = new Font("Verdana", Font.BOLD,16); //check this to change color gradually
+	
 	private ClockUpdater updatePrime;
 	private Timer updater;
 	
-	private String alarmInfo = new String("nothing here for now, fix later");
-
 	private int currHour;
 	private int currMin;
 	private int currSec;
-	private String civvieTime;
-	private boolean isMilitaryTime = true;
 
 	public MainClockDisplay() {
 		super("Sleepy Time Alarm Clock by Tom");
@@ -61,7 +55,7 @@ public class MainClockDisplay extends JFrame {
 			//rework AlarmTester to change eventInput if and else if statements, include more logic flows
 	}
 	
-	public static String cFaceDispl(int timeInput) {
+	public static String clockFaceDisplay(int timeInput) {
 		//if timeInput is a single digit n, clockFaceDisplay converts it into a string that is "0n"
 		//ex. currHour = 9, cFaceDispl(currHour) = "09"
 		String output = "";
@@ -85,10 +79,10 @@ public class MainClockDisplay extends JFrame {
 				currMin = whereTimeIs.getCurrMin();
 				currSec = whereTimeIs.getCurrSec();
 				
-				mainClockLabel.setText(cFaceDispl(whereTimeIs.getCurrHour()) + ":" 
-				+ cFaceDispl(whereTimeIs.getCurrMin()) + ":" + cFaceDispl(whereTimeIs.getCurrSec()));
+				mainClockLabel.setText("The current time is... "+ clockFaceDisplay(whereTimeIs.getCurrHour()) + ":" 
+				+ clockFaceDisplay(whereTimeIs.getCurrMin()) + ":" + clockFaceDisplay(whereTimeIs.getCurrSec()));
 				
-				alarmLabel.setText("The alarm is set to " + AlarmInputButton.getAlarmData());
+				alarmLabel.setText("The alarm is set to... " + AlarmInputButton.getAlarmData());
 				
 			}
 		}

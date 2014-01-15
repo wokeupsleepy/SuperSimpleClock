@@ -18,21 +18,22 @@ public class AlarmInputButton extends JButton {
 	
 	private AlmBtnListener btnListener = new AlmBtnListener();
 
-	private int almInHour;
-	private int almInMin;
-	private int almInSec;
-	private static String alarmData;
+	private int alarmInHour; //user input for setting the alarm
+	private int alarmInMin;
+	private int alarmInSec;
+	
+	private static String alarmData; //used in MainClockDisplay to check against current time to see if the alarm goes off
 	
 	public AlarmInputButton() {
 		setBackground(Color.BLACK);
 		setForeground(Color.WHITE);
-		setFont(new Font("Verdana", Font.BOLD,16));
+		setFont(MainClockDisplay.clockFont);
 		setText("Click Here to Set Alarm");
 		addActionListener(btnListener);
 	}
 	
-	public ClockAlarm setAlarm() { //creates a new alarm! hurray!
-		ClockAlarm klaxon = new ClockAlarm(almInHour, almInMin, almInSec);
+	private ClockAlarm setAlarm() { //creates a new alarm! hurray!
+		ClockAlarm klaxon = new ClockAlarm(alarmInHour, alarmInMin, alarmInSec);
 		return klaxon;
 	}
 	
@@ -40,15 +41,11 @@ public class AlarmInputButton extends JButton {
 		
 		public void actionPerformed(ActionEvent eventInput) {
 			alarmData = JOptionPane.showInputDialog(null, "Enter alarm in the format(HH:MM:SS): ");
-			almInHour = Integer.parseInt(alarmData.substring(0, 2));
-			almInMin = Integer.parseInt(alarmData.substring(3, 5));
-			almInSec = Integer.parseInt(alarmData.substring(6, 8));
+			alarmInHour = Integer.parseInt(alarmData.substring(0, 2));
+			alarmInMin = Integer.parseInt(alarmData.substring(3, 5));
+			alarmInSec = Integer.parseInt(alarmData.substring(6, 8));
 			
 			setAlarm();
-			
-//			System.out.println(AlarmInputButton.getAlmInHour()); //check the same methods at the bottom of the main method in MainClockDisplay
-//			System.out.println(AlarmInputButton.getAlmInMin()); //those methods output 0s across the board
-//			System.out.println(AlarmInputButton.getAlmInSec()); //the reason is because the initialization statements are in this loop
 		}
 	}
 	
@@ -58,15 +55,15 @@ public class AlarmInputButton extends JButton {
 	
 
 	public int getAlmInHour() {
-		return almInHour;
+		return alarmInHour;
 	}
 
 	public int getAlmInMin() {
-		return almInMin;
+		return alarmInMin;
 	}
 
 	public int getAlmInSec() {
-		return almInSec;
+		return alarmInSec;
 	}
 	
 	
