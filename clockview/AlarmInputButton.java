@@ -21,6 +21,7 @@ public class AlarmInputButton extends JButton {
 	private int alarmInHour; //user input for setting the alarm
 	private int alarmInMin;
 	private int alarmInSec;
+	private boolean validAlarmYes = false;
 	
 	private static String alarmData; //used in MainClockDisplay to check against current time to see if the alarm goes off
 	
@@ -45,7 +46,15 @@ public class AlarmInputButton extends JButton {
 			alarmInMin = Integer.parseInt(alarmData.substring(3, 5));
 			alarmInSec = Integer.parseInt(alarmData.substring(6, 8));
 			
-			setAlarm();
+			if(alarmInHour >= 0 && alarmInMin >= 0 && alarmInSec >= 0 &&
+					alarmInHour <= 24 && alarmInMin <= 60 && alarmInSec <= 60) {
+				setAlarm();
+				validAlarmYes = true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Invalid alarm input, please re-submit");
+				validAlarmYes = false;
+			}
 		}
 	}
 	
@@ -64,6 +73,14 @@ public class AlarmInputButton extends JButton {
 
 	public int getAlmInSec() {
 		return alarmInSec;
+	}
+
+	public boolean isValidAlarmYes() {
+		return validAlarmYes;
+	}
+
+	public void setValidAlarmYes(boolean validAlarmYes) {
+		this.validAlarmYes = validAlarmYes;
 	}
 	
 	

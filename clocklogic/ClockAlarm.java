@@ -48,13 +48,14 @@ public class ClockAlarm {
 				if (currHour == setoffHour && currMin == setoffMin && currSec == setoffSec) {
 					try {
 						// this is the alarm action, change how you please
-						File alarmFile = new File("alarmSound.wav");
+						File alarmFile = new File("C:/alarmSound1.wav"); //I suspect this line is fucking things up
 						AudioInputStream alarmStream;
 						AudioFormat alarmFormat;
 						DataLine.Info alarmInfo;
 						Clip alarmClip;
 
 						alarmStream = AudioSystem.getAudioInputStream(alarmFile);
+						//notice 2 errors occurred, it's likely because alarmFile is called twice (lines 50, 57)
 						alarmFormat = alarmStream.getFormat();
 						alarmInfo = new DataLine.Info(Clip.class, alarmFormat);
 						alarmClip = (Clip) AudioSystem.getLine(alarmInfo);
@@ -70,7 +71,7 @@ public class ClockAlarm {
 						}
 						
 					} catch (Exception e) {
-						System.out.println("Something happened with the alarm");
+						e.printStackTrace();
 					}
 				}
 			}
