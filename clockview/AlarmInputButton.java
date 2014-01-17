@@ -23,7 +23,7 @@ public class AlarmInputButton extends JButton {
 	private int alarmInSec;
 	private boolean validAlarmYes = false;
 	
-	private static String alarmData; //used in MainClockDisplay to check against current time to see if the alarm goes off
+	private String alarmData; //used in MainClockDisplay to check against current time to see if the alarm goes off
 	
 	public AlarmInputButton() {
 		setBackground(Color.BLACK);
@@ -41,24 +41,35 @@ public class AlarmInputButton extends JButton {
 	public class AlmBtnListener implements ActionListener {
 		
 		public void actionPerformed(ActionEvent eventInput) {
-			alarmData = JOptionPane.showInputDialog(null, "Enter alarm in the format(HH:MM:SS): ");
-			alarmInHour = Integer.parseInt(alarmData.substring(0, 2));
-			alarmInMin = Integer.parseInt(alarmData.substring(3, 5));
-			alarmInSec = Integer.parseInt(alarmData.substring(6, 8));
+			alarmData = JOptionPane.showInputDialog(null, "Enter alarm in the format(HHMMSS): ");
 			
-			if(alarmInHour >= 0 && alarmInMin >= 0 && alarmInSec >= 0 &&
-					alarmInHour <= 24 && alarmInMin <= 60 && alarmInSec <= 60) {
+			if(alarmData.length() != 6) {
+				alarmData = null;
+				JOptionPane.showMessageDialog(null, "Invalid alarm input length, please re-submit");
+				new AlmBtnListener();
+			}
+			
+			else {
+				alarmInHour = Integer.parseInt(alarmData.substring(0, 2));
+				alarmInMin = Integer.parseInt(alarmData.substring(2, 4));
+				alarmInSec = Integer.parseInt(alarmData.substring(4, 6));
 				setAlarm();
 				validAlarmYes = true;
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "Invalid alarm input, please re-submit");
-				validAlarmYes = false;
-			}
+			
+//			if(alarmInHour >= 0 && alarmInMin >= 0 && alarmInSec >= 0 &&
+//					alarmInHour <= 24 && alarmInMin <= 60 && alarmInSec <= 60) {
+//				setAlarm();
+//				validAlarmYes = true;
+//			}
+//			else {
+//				JOptionPane.showMessageDialog(null, "Invalid alarm input, please re-submit");
+//				validAlarmYes = false;
+//			}
 		}
 	}
 	
-	public static String getAlarmData() {
+	public String getAlarmData() {
 		return alarmData;
 	}
 	

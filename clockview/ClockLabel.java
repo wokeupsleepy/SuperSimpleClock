@@ -1,7 +1,6 @@
 package clockview;
 
 import javax.swing.JLabel;
-
 import java.awt.Color;
 
 //contains code detailing the appearance of each part of the clock

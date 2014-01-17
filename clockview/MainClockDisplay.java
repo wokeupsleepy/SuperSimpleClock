@@ -29,7 +29,7 @@ public class MainClockDisplay extends JFrame {
 	private ClockLabel alarmLabel = new ClockLabel();
 	private AlarmInputButton alarmInput = new AlarmInputButton();
 	
-	public static Font clockFont = new Font("Verdana", Font.BOLD,16); //check this to change color gradually
+	public static Font clockFont = new Font("Verdana", Font.PLAIN, 24); //check this to change color gradually
 	
 	private ClockUpdater updatePrime;
 	private Timer updater;
@@ -42,10 +42,12 @@ public class MainClockDisplay extends JFrame {
 		super("Sleepy Time Alarm Clock by Tom");
 		add(titleCard);
 		add(mainClockLabel);
-		add(alarmLabel);
 		add(alarmInput);
+		add(alarmLabel);
+		
+		mainClockLabel.setFont(new Font("Verdana", Font.PLAIN, 75));
 		titleCard.setText("<html>Sleepy Time Alarm Clock<br>by Tom</html>");
-		setLayout(new GridLayout(4,1));
+		setLayout(new GridLayout(2,2));
 		updatePrime = new ClockUpdater();
 		updater = new Timer(500, updatePrime); //sets a timer that can be used to repeat an action (check javadocs for swing.Timer)
 		updater.start(); //updater checks updatePrime every 500 milliseconds
@@ -79,11 +81,17 @@ public class MainClockDisplay extends JFrame {
 				currMin = whereTimeIs.getCurrMin();
 				currSec = whereTimeIs.getCurrSec();
 				
-				mainClockLabel.setText("The current time is... "+ clockFaceDisplay(whereTimeIs.getCurrHour()) + ":" 
+				mainClockLabel.setText(clockFaceDisplay(whereTimeIs.getCurrHour()) + ":" 
 				+ clockFaceDisplay(whereTimeIs.getCurrMin()) + ":" + clockFaceDisplay(whereTimeIs.getCurrSec()));
 				
-				alarmLabel.setText("The alarm is set to... " + AlarmInputButton.getAlarmData());
+				if(alarmInput.getAlarmData() == null) {
+					alarmLabel.setText("The alarm is set to... null");
+				}
 				
+				else {
+					alarmLabel.setText("The alarm is set to... " + clockFaceDisplay(alarmInput.getAlmInHour()) + ":"
+						+ clockFaceDisplay(alarmInput.getAlmInMin()) + ":" + clockFaceDisplay(alarmInput.getAlmInSec()));
+				}
 			}
 		}
 		
@@ -91,9 +99,10 @@ public class MainClockDisplay extends JFrame {
 	
 	public static void main(String[] args) {
 		MainClockDisplay alpher = new MainClockDisplay();
+		alpher.pack();
 		alpher.setVisible(true);
+	    alpher.setExtendedState(alpher.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		alpher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		alpher.setSize(650, 500);
 		
 		//it works now. add wav play functionality
 	}
