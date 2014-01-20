@@ -1,7 +1,6 @@
 package clockview;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,10 +12,11 @@ import clocklogic.ClockAlarm;
 //this handles the appearance of the button to input an alarm time along with an input window to put in a time
 //future improvements: impose limits on inputs (use if loops), add a secondary button to set a remembered time
 //explanation for the use of input string: It's simply faster than using drop-down menus (a wheel would be cool)
+//however, with this we're going with functionality over looks
 
 public class AlarmInputButton extends JButton {
 	
-	private AlmBtnListener btnListener = new AlmBtnListener();
+	private AlarmButtonListener buttonListener = new AlarmButtonListener();
 
 	private int alarmInHour; //user input for setting the alarm
 	private int alarmInMin;
@@ -30,7 +30,7 @@ public class AlarmInputButton extends JButton {
 		setForeground(Color.WHITE);
 		setFont(MainClockDisplay.clockFont);
 		setText("Click Here to Set Alarm");
-		addActionListener(btnListener);
+		addActionListener(buttonListener);
 	}
 	
 	private ClockAlarm setAlarm() { //creates a new alarm! hurray!
@@ -38,15 +38,30 @@ public class AlarmInputButton extends JButton {
 		return klaxon;
 	}
 	
-	public class AlmBtnListener implements ActionListener {
-		
+	private boolean checkValidClockInput (String inputAlarmData) {
+		//this ugly method checks alarmData to make sure it's using a valid 24-hour clock input (HHMMSS)
+		//assume input string length of 6 for this, look at assignment of alarmData in AlmBtnListener
+		if(Integer.parseInt(inputAlarmData.substring(0, 2)) >= 0 &&
+				Integer.parseInt(inputAlarmData.substring(0, 2)) <= 24 &&
+				Integer.parseInt(inputAlarmData.substring(2, 4)) >= 0 &&
+				Integer.parseInt(inputAlarmData.substring(2, 4)) <= 60 &&
+				Integer.parseInt(inputAlarmData.substring(4, 6)) >= 0 &&
+				Integer.parseInt(inputAlarmData.substring(4, 6)) <= 60) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public class AlarmButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent eventInput) {
 			alarmData = JOptionPane.showInputDialog(null, "Enter alarm in the format(HHMMSS): ");
 			
-			if(alarmData.length() != 6) {
+			if(alarmData.length() != 6 || checkValidClockInput(alarmData) == false) {
 				alarmData = null;
-				JOptionPane.showMessageDialog(null, "Invalid alarm input length, please re-submit");
-				new AlmBtnListener();
+				JOptionPane.showMessageDialog(null, "Invalid input, re-enter input");
+				new AlarmButtonListener();
 			}
 			
 			else {
@@ -56,16 +71,7 @@ public class AlarmInputButton extends JButton {
 				setAlarm();
 				validAlarmYes = true;
 			}
-			
-//			if(alarmInHour >= 0 && alarmInMin >= 0 && alarmInSec >= 0 &&
-//					alarmInHour <= 24 && alarmInMin <= 60 && alarmInSec <= 60) {
-//				setAlarm();
-//				validAlarmYes = true;
-//			}
-//			else {
-//				JOptionPane.showMessageDialog(null, "Invalid alarm input, please re-submit");
-//				validAlarmYes = false;
-//			}
+
 		}
 	}
 	
