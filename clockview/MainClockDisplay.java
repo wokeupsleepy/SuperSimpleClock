@@ -54,7 +54,7 @@ public class MainClockDisplay extends JFrame {
 		
 		//ClockUpdater's actionPerformed resets mainClockLabel's text with the new time
 		//updater.addActionListener(firstAlarm); if I set this, then it sets off firstAlarm
-			//rework AlarmTester to change eventInput if and else if statements, include more logic flows
+		//rework AlarmTester to change eventInput if and else if statements, include more logic flows
 	}
 	
 	public static String clockFaceDisplay(int timeInput) {
@@ -104,7 +104,6 @@ public class MainClockDisplay extends JFrame {
 	    alpher.setExtendedState(alpher.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		alpher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//it works now. add wav play functionality
 	}
 	
 }

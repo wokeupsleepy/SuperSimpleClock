@@ -12,6 +12,12 @@ import javax.sound.sampled.DataLine;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+import alarmactionrandomizer.*;
+
+//this class handles the creation of a clock alarm
+//it also handles any sort of thing that go off when the alarm goes off
+//create a JOptionPane window that shows up and requires the correct prompt to be put in
+
 public class ClockAlarm {
 
 	private int currHour; //current time
@@ -39,7 +45,19 @@ public class ClockAlarm {
 		freshAlarm = new Timer(500, alarmer);
 		freshAlarm.start();
 	}
-
+	
+	private void MathProblemLooper(Clip clipInput) {
+		MathProblem mather = new MathProblem();
+		
+		if(!mather.isCorrect()) {
+			MathProblemLooper(clipInput); //I'm... prouder of this bit than I care to admit
+		}
+		
+		else{
+			clipInput.stop(); //resolve to re-loop it until it's correct
+		}
+	}
+	
 	// AlarmAction handles the action that occurs when alarm time goes off
 	public class AlarmAction implements ActionListener {
 
@@ -48,7 +66,7 @@ public class ClockAlarm {
 				if (currHour == setoffHour && currMin == setoffMin && currSec == setoffSec) {
 					try {
 						// this is the alarm action, change how you please
-						File alarmFile = new File("C:/alarmSound1.wav");
+						File alarmFile = new File("C:/TomAssets/SuperSimpleClock/alarmSound1.wav");
 						AudioInputStream alarmStream;
 						AudioFormat alarmFormat;
 						DataLine.Info alarmInfo;
@@ -62,12 +80,7 @@ public class ClockAlarm {
 						alarmClip.start();
 						alarmClip.loop(Clip.LOOP_CONTINUOUSLY);
 						
-						JOptionPane alarmPopUp = new JOptionPane();
-						int input = alarmPopUp.showOptionDialog(null, "WAKE UP!", "Wake Up!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-						
-						if(input == JOptionPane.OK_OPTION || input == JOptionPane.CLOSED_OPTION) {
-							alarmClip.stop();
-						}
+						MathProblemLooper(alarmClip); //haha! BUSINESS
 						
 					} catch (Exception e) {
 						e.printStackTrace();
